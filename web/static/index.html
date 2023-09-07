@@ -1,0 +1,77 @@
+<html>
+
+<head>
+
+    <link rel="stylesheet" href="static/css/normalize.css">
+    <link rel="stylesheet" href="static/css/skeleton.css">
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="static/js/main.js"></script>
+
+    <style>
+        #editor {
+            height: 80vh;
+            font-size: 1.7em;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        button[disabled] {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .log{
+            border-bottom: 1px solid gray;
+            margin-bottom: 2em;
+        }
+
+        .log-date{
+            font-size: 1.3em;
+            font-weight: bold;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        .log-content{
+            padding-left: 1em;
+            padding-bottom: 1em;
+            font-size: 1.5em;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            white-space: pre-line;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+    </style>
+
+    <title>Logbook App</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="row" style="margin-top: 5%" x-data="new LogEditorController()">
+            <textarea id="editor" class="u-full-width" x-model="logContent"
+                x-bind:placeholder="logContentPlaceholder"></textarea>
+            <button class="u-full-width" x-bind:disabled="logButtonDisabled()" x-on:click="appendLog()">Log</button>
+        </div>
+
+        <div class="row" style="margin-top: 20px" x-data="new LogViewController()"
+            x-init="$nextTick(() => { getLogs() })" @new-log.window="logs.push($event.detail)">
+            <!--<div class="log-placeholder" x-text="placeholder"></div>-->
+            <template x-for="log in reversedLogs()" x-bind:key="log.id">
+                <div class="log">
+                    <p class="u-full-width log-date" x-text="(new Date(log.time)).toUTCString()"></p>
+                    <div class="u-full-width log-content" x-text="log.content"></div>
+                </div>
+            </template>
+        </div>
+
+    </div>
+</body>
+
+
+
+</html>
