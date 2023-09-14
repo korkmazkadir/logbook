@@ -1,0 +1,87 @@
+<html>
+
+<head>
+    <title>Logbook Login</title>
+</head>
+
+<body>
+
+    <link rel="stylesheet" href="static/css/normalize.css">
+    <link rel="stylesheet" href="static/css/skeleton.css">
+
+    <style>
+        .logbook-link {
+            font-size: 1.5em;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            text-align: center;
+            color: blue;
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            /* Safari */
+            animation: spin 2s linear infinite;
+        }
+
+        /* Safari */
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script src="static/js/sha256.min.js"></script>
+    <script src="static/js/login.js"></script>
+
+    <body>
+        <div class="container" x-data="new LoginController()">
+
+
+            <div class="row" style="margin-top: 5%">
+                <div class="u-full-width logbook-link" x-show="url"><a x-bind:href="host + url" x-text="host + url"
+                        target="_blank"></a></div>
+
+                <div class="row">
+                    <div class="one-third column">&nbsp;</div>
+                    <div class="one-third column">
+                        <div class="loader u-full-width" style="margin-left: auto; margin-right: auto;" x-show="spinnerVisible"></div>
+                    </div>
+                    <div class="one-third column">&nbsp;</div>
+                </div>
+
+                <div class="u-full-width" style="text-align: center; font-size: 2em;" x-text="message"></div>
+
+                <button class="u-full-width" x-on:click="createLogbook()" x-show="buttonVisible">Create New
+                    Logbook</button>
+
+            </div>
+
+        </div>
+    </body>
+
+
+</body>
+
+</html>

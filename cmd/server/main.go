@@ -19,10 +19,19 @@ func main() {
 
 	apiController := controller.NewAPIController(db)
 	router := apiController.GetGinRouter()
-	router.LoadHTMLGlob("../../web/static/index.html")
+	router.LoadHTMLGlob("../../web/static/*.html")
 	router.Static("/static", "../../web/static")
+
+	router.GET("/create-new-logbook", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "login.html", nil)
+	})
+
+	router.GET("/app", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "editor.html", nil)
+	})
+
 	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", nil)
+		c.HTML(http.StatusOK, "login.html", nil)
 	})
 
 	log.Println("server is running on 9000")
